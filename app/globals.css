@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: 'MegantE-Personal-Use-Only';
+    src: url('/fonts/MegantE-Personal-Use-Only.ttf') format('truetype'),
+         url('/fonts/Megant,-Personal-Use.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Megante';
+    src: url('/fonts/MegantE-Personal-Use-Only.ttf') format('truetype'),
+         url('/fonts/Megant,-Personal-Use.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 @theme {
-    --font-serif: 'Bodoni Moda', 'Playfair Display', 'Italiana', Didot, Georgia, serif;
-    --font-sans: 'Avenir LT Pro', 'Avenir', 'Avenir Next', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-megante: 'MegantE-Personal-Use-Only', 'Megante', sans-serif;
+    --font-sans: 'MegantE-Personal-Use-Only', 'Megante', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'MegantE-Personal-Use-Only', 'Megante', serif;
 }
 
 html, body {
@@ -11,4 +30,19 @@ html, body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-family: 'MegantE-Personal-Use-Only', 'Megante', sans-serif;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.35s ease-out forwards;
+}
+

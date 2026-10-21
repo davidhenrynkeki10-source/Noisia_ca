@@ -1,12 +1,51 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Page2 from './components/Page2';
 
-export default function Home() {
-    const [menuOpen, setMenuOpen] = useState(false);
+function HomeContent() {
+    const searchParams = useSearchParams();
+    const pageQuery = searchParams.get('page');
+    const [currentPage, setCurrentPage] = useState(pageQuery === '2' ? 2 : 1);
+
+    // Keep state in sync with URL
+    useEffect(() => {
+        if (pageQuery === '2') {
+            setCurrentPage(2);
+        } else {
+            setCurrentPage(1);
+        }
+    }, [pageQuery]);
+
+    const goToPage2 = () => {
+        setCurrentPage(2);
+        if (typeof window !== 'undefined') {
+            window.history.pushState({ page: 2 }, '', '?page=2');
+        }
+    };
+
+    const goToPage1 = () => {
+        setCurrentPage(1);
+        if (typeof window !== 'undefined') {
+            window.history.pushState({ page: 1 }, '', '/');
+        }
+    };
+
+    // If on Page 2, render Page 2 exactly as designed
+    if (currentPage === 2) {
+        return (
+            <div className="w-full h-full animate-fadeIn">
+                <Page2 onHamburgerClick={goToPage1} />
+            </div>
+        );
+    }
 
     return (
-        <main className="relative w-screen h-screen overflow-hidden select-none flex flex-row">
+        <main 
+            className="relative w-screen h-screen overflow-hidden select-none flex flex-row animate-fadeIn"
+            style={{ fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif" }}
+        >
             {/* =========================================
                 LEFT HALF (53.8% WIDTH): DEEP BLACK PANE
                 Exact color: #000000
@@ -28,7 +67,7 @@ export default function Home() {
                     <h1 
                         className="text-white tracking-tight leading-none"
                         style={{
-                            fontFamily: "'Bodoni Moda', 'Playfair Display', Didot, 'Italiana', serif",
+                            fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
                             fontSize: 'clamp(1.75rem, 2.7vw, 2.75rem)',
                             fontWeight: 400,
                             letterSpacing: '-0.02em',
@@ -40,7 +79,7 @@ export default function Home() {
                     <span 
                         className="leading-none select-none"
                         style={{
-                            fontFamily: "'Avenir LT Pro', 'Avenir', 'Avenir Next', system-ui, sans-serif",
+                            fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
                             fontSize: 'clamp(0.48rem, 0.65vw, 0.72rem)',
                             fontWeight: 300,
                             letterSpacing: '0.04em',
@@ -57,7 +96,7 @@ export default function Home() {
                     Positioned flush to the right boundary of the black pane
                 */}
                 <div 
-                    className="absolute right-0 pointer-events-none transition-all duration-700 ease-out"
+                    className="absolute right-0 pointer-events-none transition-all duration-700 ease-out z-10"
                     style={{
                         top: '18.63%',
                         height: '58.35%',
@@ -87,11 +126,11 @@ export default function Home() {
                         backgroundColor: '#DDDDDD',
                     }}
                 >
-                    {/* Minimalist Hamburger Menu Icon */}
+                    {/* Minimalist Hamburger Menu Icon - Tapping opens Page 2 */}
                     <button 
                         id="menu-toggle"
-                        aria-label="Navigation Menu"
-                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Navigate to Page 2"
+                        onClick={goToPage2}
                         className="absolute flex flex-col justify-between cursor-pointer group focus:outline-none transition-transform duration-300 active:scale-95"
                         style={{
                             top: '38.15%', // 58px / 152px
@@ -101,15 +140,11 @@ export default function Home() {
                         }}
                     >
                         <span 
-                            className={`block w-full h-[2px] bg-black transition-all duration-300 ${
-                                menuOpen ? 'rotate-45 translate-y-[4.5px]' : 'group-hover:translate-x-0.5'
-                            }`}
+                            className="block w-full h-[2px] bg-black transition-all duration-300 group-hover:translate-x-0.5"
                             style={{ backgroundColor: '#000000' }}
                         />
                         <span 
-                            className={`block w-full h-[2px] bg-black transition-all duration-300 ${
-                                menuOpen ? '-rotate-45 -translate-y-[4.5px]' : 'group-hover:-translate-x-0.5'
-                            }`}
+                            className="block w-full h-[2px] bg-black transition-all duration-300 group-hover:-translate-x-0.5"
                             style={{ backgroundColor: '#000000' }}
                         />
                     </button>
@@ -124,63 +159,28 @@ export default function Home() {
                 />
 
                 {/* Right portion of the center floating composition:
-                    Light vertical card (#E6EAED)
+                    White vertical card (#FFFFFF)
                     Spanning across the top header and bottom section
                     Flush against the left seam (split boundary)
                 */}
                 <div 
-                    className="absolute left-0 pointer-events-none transition-all duration-700 ease-out"
+                    className="absolute left-0 pointer-events-none transition-all duration-700 ease-out z-10"
                     style={{
                         top: '18.63%',
                         height: '58.35%',
                         width: '34.25%', // Exactly 162px / 473px
-                        backgroundColor: '#E6EAED',
+                        backgroundColor: '#FFFFFF',
                     }}
                 />
             </div>
-
-            {/* Subtle interactive navigation drawer when hamburger is clicked */}
-            <div 
-                className={`fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300 z-50 ${
-                    menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-                }`}
-                onClick={() => setMenuOpen(false)}
-            >
-                <div 
-                    className={`absolute top-0 right-0 w-80 h-full bg-[#E6EAED] p-10 flex flex-col justify-between shadow-2xl transition-transform duration-500 ease-in-out ${
-                        menuOpen ? 'translate-x-0' : 'translate-x-full'
-                    }`}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div className="flex justify-between items-center">
-                        <span className="font-serif text-lg tracking-wider text-black">menu</span>
-                        <button 
-                            onClick={() => setMenuOpen(false)}
-                            className="w-6 h-6 flex items-center justify-center text-xl text-neutral-800 hover:text-black cursor-pointer"
-                            aria-label="Close menu"
-                        >
-                            ×
-                        </button>
-                    </div>
-
-                    <nav className="flex flex-col space-y-6">
-                        {['Works', 'About', 'Services', 'Editorial', 'Contact'].map((item) => (
-                            <a 
-                                key={item} 
-                                href={`#${item.toLowerCase()}`}
-                                onClick={() => setMenuOpen(false)}
-                                className="text-2xl font-serif text-neutral-800 hover:text-black hover:translate-x-2 transition-all duration-200"
-                            >
-                                {item}
-                            </a>
-                        ))}
-                    </nav>
-
-                    <div className="text-xs text-neutral-500 tracking-wider font-sans">
-                        noisia © creative agency
-                    </div>
-                </div>
-            </div>
         </main>
+    );
+}
+
+export default function Home() {
+    return (
+        <Suspense fallback={<div className="w-screen h-screen bg-black" />}>
+            <HomeContent />
+        </Suspense>
     );
 }
