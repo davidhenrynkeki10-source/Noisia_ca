@@ -64,7 +64,7 @@ export default function Home() {
                 <div 
                     className="absolute right-0 pointer-events-none transition-all duration-700 ease-out z-10"
                     style={{
-                        top: '25.55%',
+                        top: '27.505%', // Vertically centered within middle band: equal 4.605% gap at top and bottom
                         height: '44.62%',
                         width: '17.51%', // Exactly 224px / 1279px
                         backgroundColor: '#3A3A3A',
@@ -146,7 +146,7 @@ export default function Home() {
                 <div 
                     className="absolute left-0 pointer-events-none transition-all duration-700 ease-out z-10"
                     style={{
-                        top: '25.55%',
+                        top: '27.505%', // Vertically centered within middle band: equal 4.605% gap at top and bottom
                         height: '44.62%',
                         width: '32.03%', // Exactly 370px / 1155px
                         backgroundColor: '#E9E9E9',
