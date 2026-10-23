@@ -5,8 +5,11 @@ import React from 'react';
 export default function Page2({ onHamburgerClick }) {
     return (
         <main 
-            className="relative w-screen h-screen overflow-hidden select-none flex flex-col m-0 p-0"
-            style={{ fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif" }}
+            className="relative w-full min-h-screen h-[100dvh] overflow-hidden select-none flex flex-col m-0 p-0"
+            style={{ 
+                fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
+                WebkitFontSmoothing: 'antialiased',
+            }}
         >
             {/* =========================================================
                 TOP SECTION (42.35% HEIGHT): PURE WHITE (#FFFFFF)
@@ -24,18 +27,15 @@ export default function Page2({ onHamburgerClick }) {
                     id="back-button"
                     aria-label="Back to Page 1"
                     onClick={onHamburgerClick}
-                    className="absolute flex items-center gap-1.5 cursor-pointer group focus:outline-none transition-transform duration-300 ease-out hover:scale-125 origin-left active:scale-95 text-black hover:text-black select-none"
+                    className="absolute flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-300 ease-out hover:scale-125 origin-left active:scale-95 text-black hover:text-black select-none"
                     style={{
                         top: '20.14%',
                         left: '6.3%',
                         fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
                     }}
                 >
-                    <span className="text-base leading-none tracking-tighter transition-transform duration-300 group-hover:-translate-x-1 font-semibold">
-                        &lt;&lt;
-                    </span>
-                    <span className="text-xs leading-none tracking-wider text-black/80 group-hover:text-black">
-                        back
+                    <span className="text-xl sm:text-2xl leading-none tracking-tighter transition-transform duration-300 group-hover:-translate-x-1 font-semibold">
+                        &lt;
                     </span>
                 </button>
 

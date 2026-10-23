@@ -43,8 +43,11 @@ function HomeContent() {
 
     return (
         <main 
-            className="relative w-screen h-screen overflow-hidden select-none flex flex-row animate-fadeIn"
-            style={{ fontFamily: "'Big Caslon', 'BigCaslon', 'Libre Caslon Display', serif" }}
+            className="relative w-full min-h-screen h-[100dvh] overflow-hidden select-none flex flex-row animate-fadeIn"
+            style={{ 
+                fontFamily: "'Big Caslon', 'BigCaslon', 'Libre Caslon Display', serif",
+                WebkitFontSmoothing: 'antialiased',
+            }}
         >
             {/* =========================================================
                 LEFT PANE (52.55% WIDTH): PURE BLACK (#000000)
@@ -52,16 +55,15 @@ function HomeContent() {
             <div 
                 className="relative h-full flex items-center shrink-0"
                 style={{ 
+                    flexBasis: '52.547%',
                     width: '52.547%', 
+                    maxWidth: '52.547%',
                     backgroundColor: '#000000' 
                 }}
             >
                 {/* Brand Logo: True 'NOISIA' / 'VISION' ambigram in Big Caslon */}
                 <div 
-                    className="flex items-center z-20"
-                    style={{
-                        paddingLeft: '28.38%',
-                    }}
+                    className="flex items-center z-20 w-full justify-center md:justify-start pr-6 sm:pr-8 md:pr-0 pl-2 sm:pl-4 md:pl-[28.38%]"
                 >
                     <h1 
                         aria-label="NOISIA"
@@ -69,11 +71,14 @@ function HomeContent() {
                         className="leading-none select-none inline-flex items-center uppercase"
                         style={{
                             fontFamily: "'Big Caslon', 'BigCaslon', 'Libre Caslon Display', serif",
-                            fontSize: 'clamp(1.75rem, 2.5vw, 3rem)',
+                            fontSize: 'clamp(1.4rem, 2.05vw, 2.45rem)',
                             fontWeight: 400,
                             color: '#B2DADA',
                             transform: 'rotate(180deg)',
+                            WebkitTransform: 'rotate(180deg)',
                             transformOrigin: 'center center',
+                            WebkitBackfaceVisibility: 'hidden',
+                            backfaceVisibility: 'hidden',
                         }}
                     >
                         {['V', 'I', 'S', 'I', 'O', 'N'].map((char, index) => (
@@ -112,9 +117,11 @@ function HomeContent() {
                 - Bottom band: #DDDDDD (23.27% height)
             ========================================================= */}
             <div 
-                className="relative h-full flex flex-col flex-1"
+                className="relative h-full flex flex-col flex-1 shrink-0 overflow-hidden"
                 style={{ 
+                    flexBasis: '47.453%',
                     width: '47.453%',
+                    maxWidth: '47.453%',
                 }}
             >
                 {/* Top Banner Region: #DDDDDD */}
