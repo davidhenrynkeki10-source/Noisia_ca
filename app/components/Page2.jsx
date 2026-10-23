@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function Page2({ onHamburgerClick }) {
     return (
@@ -23,46 +24,48 @@ export default function Page2({ onHamburgerClick }) {
                 }}
             >
                 {/* Back Button at Top Left */}
-                <button 
+                <Link 
+                    href="/"
                     id="back-button"
                     aria-label="Back to Page 1"
                     onClick={onHamburgerClick}
-                    className="absolute flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-300 ease-out hover:scale-125 origin-left active:scale-95 text-black hover:text-black select-none"
+                    className="absolute p-3 -ml-3 -mt-3 flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-300 ease-out hover:scale-125 origin-left active:scale-95 text-black hover:text-black select-none z-30"
                     style={{
                         top: '20.14%',
                         left: '6.3%',
                         fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
                     }}
                 >
-                    <span className="text-xl sm:text-2xl leading-none tracking-tighter transition-transform duration-300 group-hover:-translate-x-1 font-semibold">
+                    <span className="text-xl sm:text-2xl leading-none tracking-tighter transition-transform duration-300 group-hover:-translate-x-1 font-semibold pointer-events-none">
                         &lt;
                     </span>
-                </button>
+                </Link>
 
                 {/* Red Minimalist Hamburger Menu Icon */}
-                <button 
+                <Link 
+                    href="/"
                     id="page2-menu-toggle"
                     aria-label="Return to Page 1"
                     onClick={onHamburgerClick}
-                    className="absolute flex flex-col justify-between cursor-pointer group focus:outline-none transition-transform duration-200 active:scale-95"
+                    className="absolute p-3 -mr-3 -mt-3 flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-200 active:scale-95 z-30"
                     style={{
                         top: '20.14%', // Exactly 29px / 144px in canvas coordinates (~8.5% of total screen)
                         right: '6.3%',  // Exactly matching Page 1 & canvas position
-                        width: '18px',
-                        height: '11px',
                     }}
                 >
-                    {/* Top Red Bar */}
-                    <span 
-                        className="block w-full h-[2px] rounded-none transition-all duration-300 group-hover:translate-x-0.5"
-                        style={{ backgroundColor: '#DC3A47' }}
-                    />
-                    {/* Bottom Red Bar */}
-                    <span 
-                        className="block w-full h-[2px] rounded-none transition-all duration-300 group-hover:-translate-x-0.5"
-                        style={{ backgroundColor: '#DC3A47' }}
-                    />
-                </button>
+                    <div className="flex flex-col justify-between w-[18px] h-[11px] pointer-events-none">
+                        {/* Top Red Bar */}
+                        <span 
+                            className="block w-full h-[2px] rounded-none transition-all duration-300 group-hover:translate-x-0.5"
+                            style={{ backgroundColor: '#DC3A47' }}
+                        />
+                        {/* Bottom Red Bar */}
+                        <span 
+                            className="block w-full h-[2px] rounded-none transition-all duration-300 group-hover:-translate-x-0.5"
+                            style={{ backgroundColor: '#DC3A47' }}
+                        />
+                    </div>
+                </Link>
             </div>
 
             {/* =========================================================

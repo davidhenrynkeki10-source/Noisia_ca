@@ -1,46 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Page2 from './components/Page2';
+import React from 'react';
+import Link from 'next/link';
 
-function HomeContent() {
-    const searchParams = useSearchParams();
-    const pageQuery = searchParams.get('page');
-    const [currentPage, setCurrentPage] = useState(pageQuery === '2' ? 2 : 1);
-
-    // Keep state in sync with URL
-    useEffect(() => {
-        if (pageQuery === '2') {
-            setCurrentPage(2);
-        } else {
-            setCurrentPage(1);
-        }
-    }, [pageQuery]);
-
-    const goToPage2 = () => {
-        setCurrentPage(2);
-        if (typeof window !== 'undefined') {
-            window.history.pushState({ page: 2 }, '', '?page=2');
-        }
-    };
-
-    const goToPage1 = () => {
-        setCurrentPage(1);
-        if (typeof window !== 'undefined') {
-            window.history.pushState({ page: 1 }, '', '/');
-        }
-    };
-
-    // If on Page 2, render Page 2 exactly as designed
-    if (currentPage === 2) {
-        return (
-            <div className="w-full h-full animate-fadeIn">
-                <Page2 onHamburgerClick={goToPage1} />
-            </div>
-        );
-    }
-
+export default function Home() {
     return (
         <main 
             className="relative w-full min-h-screen h-[100dvh] overflow-hidden select-none flex flex-row animate-fadeIn"
@@ -63,15 +26,14 @@ function HomeContent() {
             >
                 {/* Brand Logo: True 'NOISIA' / 'VISION' ambigram in Big Caslon */}
                 <div 
-                    className="flex items-center z-20 w-full justify-center md:justify-start pr-6 sm:pr-8 md:pr-0 pl-2 sm:pl-4 md:pl-[28.38%]"
+                    className="flex items-center z-20 w-full justify-center md:justify-start pl-0 pr-6 sm:pr-8 md:pr-0 md:pl-[28.38%]"
                 >
                     <h1 
                         aria-label="NOISIA"
                         title="NOISIA / VISION"
-                        className="leading-none select-none inline-flex items-center uppercase"
+                        className="leading-none select-none inline-flex items-center uppercase text-[clamp(0.62rem,2.2vw,0.92rem)] md:text-[clamp(0.95rem,1.35vw,1.65rem)]"
                         style={{
                             fontFamily: "'Big Caslon', 'BigCaslon', 'Libre Caslon Display', serif",
-                            fontSize: 'clamp(1.4rem, 2.05vw, 2.45rem)',
                             fontWeight: 400,
                             color: '#B2DADA',
                             transform: 'rotate(180deg)',
@@ -126,37 +88,37 @@ function HomeContent() {
             >
                 {/* Top Banner Region: #DDDDDD */}
                 <div 
-                    className="w-full relative shrink-0 flex items-center justify-end"
+                    className="w-full relative shrink-0 flex items-center justify-end z-30"
                     style={{
                         height: '22.90%',
                         backgroundColor: '#DDDDDD',
                     }}
                 >
                     {/* Minimalist Red Hamburger Menu Icon - Tapping opens Page 2 */}
-                    <button 
+                    <Link 
+                        href="/page-2"
                         id="menu-toggle"
                         aria-label="Navigate to Page 2"
-                        onClick={goToPage2}
-                        className="absolute flex flex-col justify-between cursor-pointer group focus:outline-none transition-transform duration-300 active:scale-95"
+                        className="absolute p-4 -mr-4 -mt-4 flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-200 active:scale-95 z-30"
                         style={{
                             top: '50%',
                             transform: 'translateY(-50%)',
                             right: '12.29%', // Exactly 142px / 1155px
-                            width: '20px',
-                            height: '13px',
                         }}
                     >
-                        {/* Top Red Bar */}
-                        <span 
-                            className="block w-full h-[2.5px] transition-all duration-300 group-hover:translate-x-0.5"
-                            style={{ backgroundColor: '#DC3A47' }}
-                        />
-                        {/* Bottom Red Bar */}
-                        <span 
-                            className="block w-full h-[2.5px] transition-all duration-300 group-hover:-translate-x-0.5"
-                            style={{ backgroundColor: '#DC3A47' }}
-                        />
-                    </button>
+                        <div className="flex flex-col justify-between w-[20px] h-[13px] pointer-events-none">
+                            {/* Top Red Bar */}
+                            <span 
+                                className="block w-full h-[2.5px] transition-all duration-300 group-hover:translate-x-0.5"
+                                style={{ backgroundColor: '#DC3A47' }}
+                            />
+                            {/* Bottom Red Bar */}
+                            <span 
+                                className="block w-full h-[2.5px] transition-all duration-300 group-hover:-translate-x-0.5"
+                                style={{ backgroundColor: '#DC3A47' }}
+                            />
+                        </div>
+                    </Link>
                 </div>
 
                 {/* Middle Section: #FAFAFA */}
@@ -195,10 +157,3 @@ function HomeContent() {
     );
 }
 
-export default function Home() {
-    return (
-        <Suspense fallback={<div className="w-screen h-screen bg-black" />}>
-            <HomeContent />
-        </Suspense>
-    );
-}
