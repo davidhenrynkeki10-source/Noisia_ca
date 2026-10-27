@@ -1,9 +1,22 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import Page2 from './components/Page2';
 
 export default function Home() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Close modal on Escape key press
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isMenuOpen]);
+
     return (
         <main 
             className="relative w-full min-h-screen h-[100dvh] overflow-hidden select-none flex flex-row animate-fadeIn"
@@ -94,11 +107,13 @@ export default function Home() {
                         backgroundColor: '#DDDDDD',
                     }}
                 >
-                    {/* Minimalist Red Hamburger Menu Icon - Tapping opens Page 2 */}
-                    <Link 
-                        href="/page-2"
+                    {/* Minimalist Red Hamburger Menu Icon - Toggles Page 2 Modal */}
+                    <button 
+                        type="button"
                         id="menu-toggle"
-                        aria-label="Navigate to Page 2"
+                        aria-label="Open Navigation Menu"
+                        aria-expanded={isMenuOpen}
+                        onClick={() => setIsMenuOpen(true)}
                         className="absolute p-4 -mr-4 -mt-4 flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-200 active:scale-95 z-30"
                         style={{
                             top: '50%',
@@ -118,7 +133,7 @@ export default function Home() {
                                 style={{ backgroundColor: '#DC3A47' }}
                             />
                         </div>
-                    </Link>
+                    </button>
                 </div>
 
                 {/* Middle Section: #FAFAFA */}
@@ -152,6 +167,22 @@ export default function Home() {
                         backgroundColor: '#E9E9E9',
                     }}
                 />
+            </div>
+
+            {/* =========================================================
+                PAGE 2 SLIDE-DOWN MODAL
+                Transitions down as a modal from the top over Page 1
+            ========================================================= */}
+            <div 
+                id="page2-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Navigation Menu"
+                className={`fixed inset-0 z-50 w-full h-[100dvh] overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] ${
+                    isMenuOpen ? 'translate-y-0 pointer-events-auto' : '-translate-y-full pointer-events-none'
+                }`}
+            >
+                <Page2 onHamburgerClick={() => setIsMenuOpen(false)} />
             </div>
         </main>
     );

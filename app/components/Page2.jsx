@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 export default function Page2({ onHamburgerClick }) {
     return (
@@ -24,8 +23,8 @@ export default function Page2({ onHamburgerClick }) {
                 }}
             >
                 {/* Back Button at Top Left */}
-                <Link 
-                    href="/"
+                <button 
+                    type="button"
                     id="back-button"
                     aria-label="Back to Page 1"
                     onClick={onHamburgerClick}
@@ -39,13 +38,13 @@ export default function Page2({ onHamburgerClick }) {
                     <span className="text-xl sm:text-2xl leading-none tracking-tighter transition-transform duration-300 group-hover:-translate-x-1 font-semibold pointer-events-none">
                         &lt;
                     </span>
-                </Link>
+                </button>
 
                 {/* Red Minimalist Hamburger Menu Icon */}
-                <Link 
-                    href="/"
+                <button 
+                    type="button"
                     id="page2-menu-toggle"
-                    aria-label="Return to Page 1"
+                    aria-label="Close Navigation Menu"
                     onClick={onHamburgerClick}
                     className="absolute p-3 -mr-3 -mt-3 flex items-center justify-center cursor-pointer group focus:outline-none transition-transform duration-200 active:scale-95 z-30"
                     style={{
@@ -65,12 +64,12 @@ export default function Page2({ onHamburgerClick }) {
                             style={{ backgroundColor: '#DC3A47' }}
                         />
                     </div>
-                </Link>
+                </button>
             </div>
 
             {/* =========================================================
                 MIDDLE SECTION (44.41% HEIGHT): NEUTRAL GREY (#898989)
-                Contains 'Assets', 'Services', 'Platform' towards bottom right
+                Contains 'Assets', 'Services', 'Platform' stacked vertically
             ========================================================= */}
             <div 
                 className="w-full relative shrink-0 flex items-end justify-end"
@@ -79,20 +78,20 @@ export default function Page2({ onHamburgerClick }) {
                     backgroundColor: '#898989',
                 }}
             >
-                {/* Bottom Navigation Links Row: Assets, Services, Platform */}
+                {/* Vertical Navigation Links Column: Assets and the next menu item being under */}
                 <div 
-                    className="flex items-center gap-7 sm:gap-9 md:gap-12 lg:gap-14"
+                    className="flex flex-col items-start gap-4 sm:gap-5 md:gap-6"
                     style={{
                         marginRight: '6.3%', // Exactly aligned with the hamburger above
-                        marginBottom: '4.8vh', // Positioned nicely in the lower portion of the grey band (~29.8% from bottom)
+                        marginBottom: '4.8vh', // Positioned nicely in the lower portion of the grey band
                     }}
                 >
                     <a 
                         href="#assets"
-                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-125 origin-center tracking-wide"
+                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-110 origin-left tracking-wide"
                         style={{
                             fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
-                            fontSize: 'clamp(0.8rem, 0.9vw, 1.05rem)',
+                            fontSize: 'clamp(0.85rem, 0.95vw, 1.1rem)',
                             fontWeight: 400,
                             letterSpacing: '0.04em',
                             color: '#FFFFFF',
@@ -103,10 +102,10 @@ export default function Page2({ onHamburgerClick }) {
 
                     <a 
                         href="#services"
-                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-125 origin-center tracking-wide"
+                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-110 origin-left tracking-wide"
                         style={{
                             fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
-                            fontSize: 'clamp(0.8rem, 0.9vw, 1.05rem)',
+                            fontSize: 'clamp(0.85rem, 0.95vw, 1.1rem)',
                             fontWeight: 400,
                             letterSpacing: '0.04em',
                             color: '#FFFFFF',
@@ -117,10 +116,10 @@ export default function Page2({ onHamburgerClick }) {
 
                     <a 
                         href="#platform"
-                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-125 origin-center tracking-wide"
+                        className="inline-block transition-transform duration-300 ease-out cursor-pointer text-white/90 hover:text-white hover:scale-110 origin-left tracking-wide"
                         style={{
                             fontFamily: "'MegantE-Personal-Use-Only', 'Megante', sans-serif",
-                            fontSize: 'clamp(0.8rem, 0.9vw, 1.05rem)',
+                            fontSize: 'clamp(0.85rem, 0.95vw, 1.1rem)',
                             fontWeight: 400,
                             letterSpacing: '0.04em',
                             color: '#FFFFFF',
