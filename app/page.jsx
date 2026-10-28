@@ -2,20 +2,47 @@
 
 import React, { useState, useEffect } from 'react';
 import Page2 from './components/Page2';
+import AssetPage, { ARTISTS } from './components/AssetPage';
 
 export default function Home() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [currentHash, setCurrentHash] = useState('');
 
-    // Close modal on Escape key press
+    const isAssetView = currentHash === '#assets' || ARTISTS.some((a) => '#' + a.slug === currentHash);
+
+    useEffect(() => {
+        // Sync hash on mount and on hashchange
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            if (hash === '#marcus') {
+                window.location.hash = '#david';
+                return;
+            }
+            setCurrentHash(hash);
+            if (hash === '#assets' || ARTISTS.some((a) => '#' + a.slug === hash)) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        handleHashChange();
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
+
+    // Close modal or assets on Escape key press
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape' && isMenuOpen) {
-                setIsMenuOpen(false);
+            if (e.key === 'Escape') {
+                if (isAssetView) {
+                    window.location.hash = '';
+                } else if (isMenuOpen) {
+                    setIsMenuOpen(false);
+                }
             }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isMenuOpen]);
+    }, [isMenuOpen, isAssetView]);
 
     return (
         <main 
@@ -183,6 +210,24 @@ export default function Home() {
                 }`}
             >
                 <Page2 onHamburgerClick={() => setIsMenuOpen(false)} />
+            </div>
+
+            {/* =========================================================
+                ASSET PAGE VIEW (#assets)
+                Recreation of Asset Page.pdf as http://localhost:3000/#assets
+            ========================================================= */}
+            <div 
+                id="assets-modal"
+                aria-label="Assets Page"
+                className={`fixed inset-0 z-60 w-full h-[100dvh] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isAssetView ? 'opacity-100 pointer-events-auto scale-100 visible' : 'opacity-0 pointer-events-none scale-[0.99] invisible'
+                }`}
+            >
+                {isAssetView && (
+                    <AssetPage onBack={() => {
+                        window.location.hash = '';
+                    }} />
+                )}
             </div>
         </main>
     );
